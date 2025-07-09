@@ -12,7 +12,15 @@ class Producto extends Model
     protected $fillable = [
         'nombre',
         'stock',
-        'precio'
+        'stock_min',
+        'precio_compra',
+        'precio_venta'
+    ];
+
+    protected $hidden = [
+        'deleted_at',
+        'updated_at',
+        'created_at'
     ];
     
     public function solicitudes(): BelongsToMany

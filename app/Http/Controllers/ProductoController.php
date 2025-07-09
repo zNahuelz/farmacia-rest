@@ -34,13 +34,17 @@ class ProductoController extends Controller
         $request->validate([
             'nombre' => ['required','min:5','max:100'],
             'stock' => ['required','integer','min:0'],
-            'precio' => ['required','numeric'],
+            'stock_min' => ['required','integer','min:1'],
+            'precio_compra' => ['required','numeric'],
+            'precio_venta' => ['required','numeric'],
         ]);
 
         $product = Producto::create([
             'nombre' => trim(strtoupper($request->nombre)),
             'stock' => $request->stock,
-            'precio' => $request->precio,
+            'stock_min' => $request->stock_min,
+            'precio_compra' => $request->precio_compra,
+            'precio_venta' => $request->precio_venta,
         ]);
         return response()->json([
             'mensaje' => "Producto creado correctamente, asignado ID: $product->id",
@@ -71,14 +75,18 @@ class ProductoController extends Controller
             'id_producto' => ['required', 'exists:productos,id'],
             'nombre' => ['required','min:5','max:100'],
             'stock' => ['required','integer','min:0'],
-            'precio' => ['required','numeric'],
+            'stock_min' => ['required','integer','min:1'],
+            'precio_compra' => ['required','numeric'],
+            'precio_venta' => ['required','numeric'],
         ]);
         $product = Producto::where('id', $request->id_producto)->first();
 
         $product->update([
             'nombre' => trim(strtoupper($request->nombre)),
             'stock' => $request->stock,
-            'precio' => $request->precio,
+            'stock_min' => $request->stock_min,
+            'precio_compra' => $request->precio_compra,
+            'precio_venta' => $request->precio_venta,
         ]);
 
         return response()->json([
